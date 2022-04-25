@@ -1,79 +1,16 @@
 <html>
 <head>
-	<title>Shard - Project Progress</title>
+	<title>Mario - Project Progress</title>
 	<link rel="icon" type="image/x-icon" href="images/favicon.ico">
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script id="headerfooter-loader" src="scripts/insertHeaderFooter.js"></script>
 
 	<link rel="stylesheet" href="style.css">
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script src="scripts/progress_data.js"></script>
-	<script type="text/javascript">
-		google.charts.load('current', {'packages':['gantt']});
-		google.charts.setOnLoadCallback(drawAllCharts);
-
-		function drawAllCharts() {
-			Object.entries(progressData).forEach(([k,v]) => {
-				chartDivId = `chart_div${k}`
-				$("#charts").append((`<div id='${chartDivId}'></div>`))
-				console.log("The key: ", k)
-				console.log("The value: ", v)
-				drawChart(k)
-				$(`#${chartDivId}`).prepend(`<br /><h3>Plan as of ${k}</h3>`)
-			})
-		}
-
-		function drawChart(index) {
-
-			var data = new google.visualization.DataTable();
-			data.addColumn('string', 'Task ID');
-			data.addColumn('string', 'Task Name');
-			data.addColumn('string', 'Resource');
-			data.addColumn('date', 'Start Date');
-			data.addColumn('date', 'End Date');
-			data.addColumn('number', 'Duration');
-			data.addColumn('number', 'Percent Complete');
-			data.addColumn('string', 'Dependencies');
-
-			rowData = []
-
-			rowData.push(...progressData[index])
-
-			data.addRows(rowData);
-
-			var options = {
-				/* dynamically scale graph as needed */
-				height: data.getNumberOfRows()*42+38,
-				backgroundColor: {
-        			fill: '#2e2e2e',
-     			},
-				gantt: {
-					criticalPathEnabled: true,
-					labelStyle: {
-						fontSize: 14,
-						color: 'white'
-					},
-					arrow: {
-						//angle: 50,
-						width: 1.4,
-						color: '#beb9b0',
-						radius: 15
-					},
-				},
-			};
-
-
-			var chart = new google.visualization.Gantt(document.getElementById('chart_div'+index));
-
-			chart.draw(data, options);
-		}
-	</script>
 </head>
 
 <body>
 	<header></header>
 	<h2>ENG1 Project Progress</h2>
-	<div id="charts"></div>
 	<footer></footer>
 </body>
 </html>
